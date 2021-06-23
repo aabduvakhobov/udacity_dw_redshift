@@ -3,4 +3,3 @@
 **this is readme**
 Project will further get raw data from S3 bucket and build new star
 schema DW.
-
