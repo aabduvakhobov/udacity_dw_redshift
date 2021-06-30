@@ -10,9 +10,13 @@ def drop_tables(cur, conn):
 
 
 def create_tables(cur, conn):
-    for query in create_table_queries:
-        cur.execute(query)
-        conn.commit()
+    try:
+        for query in create_table_queries:
+            cur.execute(query)
+            conn.commit()
+            print('done')
+    except Exception as e:
+        print(e)
 
 
 def main():
@@ -24,6 +28,7 @@ def main():
 
     drop_tables(cur, conn)
     create_tables(cur, conn)
+    print()
 
     conn.close()
 
