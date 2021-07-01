@@ -20,7 +20,7 @@ artist_table_drop = "DROP TABLE IF EXISTS artists;"
 time_table_drop = "DROP TABLE IF EXISTS time;"
 
 # CREATE TABLES
-
+# creating staging tables design, the same as source json files
 staging_events_table_create = ("""
     CREATE TABLE IF NOT EXISTS staging_events (
         artist text,
@@ -58,7 +58,7 @@ staging_songs_table_create = ("""
     year integer
     )
 """)
-
+# star schema tables: dimensions and fact table
 user_table_create = ("""
     CREATE TABLE users (
     user_id integer PRIMARY KEY sortkey, 
@@ -119,7 +119,7 @@ songplay_table_create = ("""
     )
 """)
 
-# STAGING TABLES
+# LOAD STAGING TABLES
 
 staging_events_copy = ("""
 COPY staging_events 
@@ -138,8 +138,8 @@ COMPUPDATE OFF
 region 'us-west-2';
 """).format(SONG_DATA, IAM_ROLE_ARN)
 
-# FINAL TABLES
 
+# ETL and INSERT
 songplay_table_insert = ("""
     INSERT INTO songplays (
         start_time,user_id,level,song_id,artist_id,session_id,location,user_agent)
